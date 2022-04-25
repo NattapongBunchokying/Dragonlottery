@@ -44,7 +44,6 @@ export default function Home() {
           <div className="container">
             <div className="navbar-brand">
               <h1>Dargon Lottery 🐉</h1>
-              <h1>Nattapong</h1>
             </div>
             <div className="navbar-end">
               <button onClick={connectWalletHandler} className="button is-link"> Connect Wallet 💳</button>
