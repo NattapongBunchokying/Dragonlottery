@@ -1,12 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Web3 from 'web3'
+import lotteryContract from '../blockchain/lottery'
 import styles from '../styles/Home.module.css'
 import 'bulma/css/bulma.css'
 
 export default function Home() {
   const [web3, setWeb3] = useState()
   const [address, setAddress] = useState()
+  const [lcContract, setLcContract] = useState()
+  const [lotteryPot, setLotteryPot] = useState()
+  const [players, setPlayers] = useState([])
+  
+  useEffect(() => {
+    if (lcContract) getPot()
+    if (lcContract) getPlayers()
+  }, [lcContract, lotteryPot, players])
+
+  const getPot = async () => {
+    const pot = await lcContract.methods.getBalance().call()
+    setLotteryPot(pot)
+  }
+
+  const getPlayers = async () => {
+    const pllayers = await lcContract.methods.getPlayers().call()
+    setPlayers(players)
+  }
 
   const connectWalletHandler = async () => {
     //check Matamask
@@ -20,6 +39,9 @@ export default function Home() {
         //list accouts
         const accouts = await web3.eth.getAccounts()
         setAddress(accouts[0])
+        const lc =lotteryContract(web3)
+        setLcContract(lc)
+
       } catch(err) {
         console.log(err.message)
       }
@@ -87,10 +109,14 @@ export default function Home() {
                       <div className="content">
                         <h2>Players #1 🤴🏻</h2>
                         <div>
-                              <a href="https://etherscan.io/address/0x0185445BC74d20B3b038Ed16D1c3aFABF4E3b4d5">
-                              0x0185445BC74d20B3b038Ed16D1c3aFABF4E3b4d5
-                              </a>
-                        </div>
+                          {
+                          playersmap(player => {
+                            <a href={`https://etherscan.io/address/${players}`} target="_blank">
+                              {players}
+                            </a>
+                          })
+                          }
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -100,7 +126,7 @@ export default function Home() {
                     <div className="card-content">
                       <div className="content">
                         <h2>Reward 💰</h2>
-                         <p>10 Ether</p>
+                         <p>{lotteryPot}</p>
                       </div>
                     </div>
                   </div>
