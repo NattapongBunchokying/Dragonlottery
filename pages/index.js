@@ -114,13 +114,12 @@ export default function Home() {
         <meta name="description" content="Dargon Lottery" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
+       <main className={styles.main}>
         <nav className="navbar mt-4 mb-4">
           <div className="container">
             <div className="navbar-brand">
               <h1>Dargon Lottery 🐉</h1>
-            </div>
+              </div>
             <div className="navbar-end">
               <button onClick={connectWalletHandler} className="button is-link"> Connect Wallet 💳</button>
             </div>
@@ -177,7 +176,7 @@ export default function Home() {
                   <div className="card">
                     <div className="card-content">
                       <div className="content">
-                        <h2>Players #1 🤴🏻({lotteryPlayers.length})</h2>
+                        <h2>Players🤴🏻({lotteryPlayers.length})</h2>
                         <ul className="ml-0">
                           {
                             (lotteryPlayers && lotteryPlayers.length > 0) && lotteryPlayers.map((player, index) => {
