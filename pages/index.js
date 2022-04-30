@@ -22,17 +22,17 @@ export default function Home() {
     if (lcContract) getPlayers()
     if (lcContract) getLotteryId()
   }, [lcContract])
-
+  //reward
   const getPot = async () => {
     const pot = await lcContract.methods.getBalance().call()
     setLotteryPot(web3.utils.fromWei(pot, 'ether'))
   }
-
+  //players
   const getPlayers = async () => {
     const players = await lcContract.methods.getPlayers().call()
     setPlayers(players)
   }
-
+  //lotter history
   const getHistory = async (id) => {
     setLotteryHistory([])
     for (let i = parseInt(id); i > 0; i--) {
@@ -44,7 +44,7 @@ export default function Home() {
     }
     
   }
-
+  //identify id lottery
   const getLotteryId = async () => {
     const lotteryId = await lcContract.methods.lotteryId().call()
     setLotteryId(lotteryId)
@@ -52,7 +52,7 @@ export default function Home() {
     console.log(JSON.stringify(lotteryHistory))
   }
 
-
+  //will play to but lottery 
   const enterLotteryHandler = async () => {
     try {
       await lcContract.methods.enter().send({
@@ -65,7 +65,7 @@ export default function Home() {
       setError(err.message)
     }
   }
-
+  //will to find random the winner
   const pickWinnerHandler = async () => {
     try {
       await lcContract.methods.payWinner().send({

@@ -11,7 +11,7 @@ contract Lottery is VRFConsumerBase {
     mapping (uint => address payable) public lotteryHistory;
 
     bytes32 internal keyHash; // identifies which Chainlink oracle to use
-    uint internal fee;        // fee to get random number
+    uint internal fee;        // Random number
     uint public randomResult;
 
     constructor()
